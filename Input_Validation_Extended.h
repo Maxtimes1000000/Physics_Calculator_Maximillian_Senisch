@@ -89,7 +89,7 @@ char validateChar(char &charInput)
 { 
     while (true)
     {
-        cout << "Enter a single letter or number (1 digit): ";
+        cout << "Please enter a single letter or number (1 digit): ";
 
         try
         {
