@@ -17,16 +17,8 @@
 #include <string> //for string manipulation
 #include <sstream> //for string manipulation and comparison
 #include <iomanip>
-#include <vector>
 
 using namespace std;
-
-void Multiply(int, vector<string>, vector<double>, vector<string>);
-void Divide(int, vector<string>, vector<double>, vector<string>);
-string concatinate(string, string);
-double InputValue(vector<string>);
-string InputUnits(vector<string>);
-void Output();
 
 void Velocity();
 void Acceleration();
@@ -38,37 +30,33 @@ void Momentum();
 int main()
 {
   //****************************************************************************************
-  vector<double> values;
-  vector<string> units;
-  vector<string> names;
-  int vectorSize;
+
   char choice = '0';
+  string colorRed = "\033[31m";
+  string colorBlue = "\033[34m";
+  string colorOrange = "\033[33m";
+  string colorGreen = "\033[32m";
+  string colorWhite = "\033[37m";
+  string colorReset = "\033[0m";
   do
   {
-    cout << "\n******************************************************";
+    cout << colorReset << "\n******************************************************";
     cout << "\nPhysics maths menu\n\n";
     cout << "1) velocity maths\n";
     cout << "2) acceleration maths\n";
-    cout << "3) motion maths\n";
+    cout << colorBlue << "3) motion maths\n" << colorReset;
     cout << "4) Newton's second law maths\n";
     cout << "5) weight maths\n";
     cout << "6) momentum maths\n";
-    cout << "7) clear screen\n";
-    cout << "e or E) exit menu\n\n";
+    cout << colorOrange << "7) clear screen\n" << colorReset;
+    cout << colorGreen << "e or E) exit menu\n\n" << colorReset;
 
     choice = validateChar(choice);
 
     cout << "******************************************************";
     
     if(choice == '1')
-    {
-      vectorSize = 2;
-      names.push_back = "change in position";
-      names.push_back = "change in time";
-      names.push_back = "velocity";
-      Divide(vectorSize);
-      
-    }
+    Velocity();
     else if(choice == '2')
     Acceleration();
     else if(choice == '3')
@@ -84,65 +72,87 @@ int main()
     else if(choice == 'E' || choice == 'e')
     {
       //Exit program
-      cout << "\nProgram terminated";
+      cout << colorGreen << "\nProgram terminated" << colorReset;
     }
     else
     {
       //Invalid input
-      cout << "\nInvalid Input\n";
+      cout << colorRed << "\nInvalid Input\n" << colorReset;
     }
   }
   while (choice != 'E' && choice != 'e');
   //********************************************************************************
   return 0;
 }
-/*
-double Multiply(int vectorSize, vector<string> names, vector<double> values, vector<string> units)
-{
-  return;
-}
-*/
-double Divide(int vectorSize, vector<string> names, vector<double> values, vector<string> units)
-{
-  for(int i=0; i < vectorSize; i++)
-  {
-    values.push_back = InputValue(names[i]);
-    units.push_back = InputUnits(names[i]);
-  }
-  
-  return;
-}
-/*
-string concatinate(string, string)
-{
-  return;
-}
-*/
-double InputValue(vector<string> &name)
-{
-  cout << "Please enter the " << name << ": ";
-  cin >>
-  return;
-}
-string InputUnits(vector<string> &name)
-{
-  return;
-}
-/*
-void Output()
-{
-  
-}
 
+void Velocity()//*******************************************************************
+{
+  double ds = 0.0, dt = 0.0, V = 0.0;
+  string dsUnits;
+  string dtUnits;
+  string vUnits;
+
+  cout << "\nVelocity maths\n\nDue to the inability of C++ to easily take in functions this option will only calculate the average velocity";
+  cout << "\n\nPlease enter (Δs)\n";
+  ds = validateDouble(ds);
+  cout << "\n\nPlease enter the units for (Δs)\n";
+  dsUnits = validateString(dsUnits);
+
+  do
+  {
+    cout << "\n\nPlease enter (Δt) greater than zero\n";
+    dt = validateDouble(dt);
+  }
+  while(dt <= 0.0);
+
+  cout << "\n\nPlease enter the units for (Δt)\n";
+  dtUnits = validateString(dtUnits);
+
+  V = ds/dt;
+  vUnits = dsUnits + "/" + dtUnits;
+
+  cout << fixed << setprecision(4) << "\n" << ds << " " << dsUnits << " / " << dt << " " << dtUnits << " = " << V << " ";
+  cout << vUnits << endl;
+}
+void Acceleration()//**************************************************************************
+{
+  double dv = 0.0, dt = 0.0, A = 0.0;
+  string dvUnits;
+  string dtUnits;
+  string aUnits;
+
+  cout << "\nAcceleration maths\n\nDue to the inability of C++ to easily take in functions this option will only calculate the average acceleration";
+  cout << "\n\nPlease enter (Δv)\n";
+  dv = validateDouble(dv);
+  cout << "\n\nPlease enter the units for (Δv)\n";
+  dvUnits = validateString(dvUnits);
+
+  do
+  {
+    cout << "\n\nPlease enter (Δt) greater than zero\n";
+    dt = validateDouble(dt);
+  }
+  while(dt <= 0.0);
+
+  cout << "\n\nPlease enter the units for (Δt)\n";
+  dtUnits = validateString(dtUnits);
+
+  A = dv/dt;
+  aUnits = dvUnits + "/" + dtUnits;
+
+  cout << fixed << setprecision(4) << A << " ";
+  cout << aUnits << endl;
+}
 void Motion()//*******************************************************************************
 {
   //This one has 4 options within it
-
+  string colorBlue = "\033[34m";
   char choice = '0';
   do
   {
+
     double sFinal = 0.0, sInitial = 0.0, vFinal = 0.0, vInitial = 0.0, vFinalSquared = 0.0, vAvg = 0.0, a = 0.0, t = 0.0;
-    cout << "\n\tMotion maths menu\n\n";
+    cout << colorBlue << "\n\tMotion maths menu\n\n";
     cout << "\t1) Solve for final velocity\n";
     cout << "\t2) Solve for final position\n";
     cout << "\t3) Solve for final velocity^2\n";
@@ -230,4 +240,75 @@ void Motion()//*****************************************************************
   }
   while (choice != 'r' && choice != 'R');
 }
-*/
+void NewtonsSecondLaw()//**************************************************************************
+{
+  double m = 0.0, a = 0.0, N = 0.0;
+  string mUnits;
+  string aUnits;
+  string NUnits;
+
+  cout << "\n\tNewton's Second law maths\n\n";
+  cout << "\n\tPlease enter the mass\n\t";
+  m = validateDouble(m);
+  cout << "\n\tPlease enter the units for mass;\n\t";
+  mUnits = validateString(mUnits);
+  cout << "\n\tPlease enter the acceleration\n\t";
+  a = validateDouble(a);
+  cout << "\n\tPlease enter the units for acceleration;\n\t";
+  aUnits = validateString(aUnits);
+
+  N = m*a;
+
+  NUnits = mUnits + " " + aUnits;
+
+  cout << "\n\t" << fixed << setprecision(4) << N << " = (" << m << " x " << a << ")\n";
+  cout << "\tThe force is " << N << "\n\n";
+}
+void Weight()//******************************************************************************
+{
+  double m = 0.0, g = 0.0, W = 0.0;
+  string mUnits;
+  string gUnits;
+  string WUnits;
+
+  cout << "\n\tWeight maths\n\n";
+  cout << "\n\tPlease enter the mass\n\t";
+  m = validateDouble(m);
+  cout << "\n\tPlease enter the units for mass;\n\t";
+  mUnits = validateString(mUnits);
+  cout << "\n\tPlease enter the gravitational acceleration\n\t";
+  g = validateDouble(g);
+  cout << "\n\tPlease enter the units for gravitaional acceleration;\n\t";
+  gUnits = validateString(gUnits);
+
+  W = m*g;
+
+  WUnits = mUnits + " " + gUnits;
+
+  cout << "\n\t" << fixed << setprecision(4) << W << " = (" << m << " x " << g << ")\n";
+  cout << "\tThe weight is " << W << WUnits << "\n\n";
+}
+void Momentum()//****************************************************************************
+{
+  double m = 0.0, v = 0.0, P = 0.0;
+  string mUnits;
+  string vUnits;
+  string PUnits;
+
+  cout << "\n\tMomentum maths\n\n";
+  cout << "\n\tPlease enter the mass\n\t";
+  m = validateDouble(m);
+  cout << "\n\tPlease enter the units for mass;\n\t";
+  mUnits = validateString(mUnits);
+  cout << "\n\tPlease enter the velocity\n\t";
+  v = validateDouble(v);
+  cout << "\n\tPlease enter the units for velocity;\n\t";
+  vUnits = validateString(vUnits);
+
+  P = m*v;
+
+  PUnits = mUnits + " " + vUnits;
+
+  cout << "\n\t" << fixed << setprecision(4) << P << " = (" << m << " x " << v << ")\n";
+  cout << "\tThe momentum is " << P << "\n\n";
+}
